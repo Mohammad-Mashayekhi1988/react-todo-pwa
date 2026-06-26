@@ -13,19 +13,22 @@ export function useTodos() {
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      "todos",
-      JSON.stringify(todos)
-    );
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = (text: string) => {
+  const addTodo = (
+    text: string,
+    reminderDate: string,
+    reminderTime: string,
+  ) => {
     if (!text.trim()) return;
 
     const newTodo: Todo = {
       id: Date.now(),
       text,
       completed: false,
+      reminderDate,
+      reminderTime,
     };
 
     setTodos([...todos, newTodo]);
@@ -34,23 +37,48 @@ export function useTodos() {
   const toggleTodo = (id: number) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      )
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   };
 
   const deleteTodo = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+  const editTodo = (id: number, newText: string) => {
+    if (!newText.trim()) return;
+
     setTodos(
-      todos.filter((todo) => todo.id !== id)
+      todos.map((todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              text: newText,
+            }
+          : todo,
+      ),
     );
   };
 
+  const markAsNotified = (id: number) => {
+  setTodos(
+    todos.map((todo) =>
+      todo.id === id
+        ? {
+            ...todo,
+            notified: true,
+          }
+        : todo
+    )
+  );
+};
   return {
     todos,
     addTodo,
     toggleTodo,
     deleteTodo,
+    editTodo,
+      markAsNotified,
+
   };
 }

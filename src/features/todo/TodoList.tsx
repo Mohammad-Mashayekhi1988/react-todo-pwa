@@ -5,13 +5,9 @@ interface TodoListProps {
   todos: Todo[];
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
+  onEdit: (id: number, text: string) => void;
 }
-
-function TodoList({
-  todos,
-  onToggle,
-  onDelete,
-}: TodoListProps) {
+function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
   return (
     <ul className="mt-6">
       {todos.map((todo) => (
@@ -20,6 +16,7 @@ function TodoList({
           todo={todo}
           onToggle={onToggle}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       ))}
     </ul>
