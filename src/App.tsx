@@ -9,8 +9,8 @@ import { useTheme } from "./contexts/ThemeContext";
 import { translations } from "./locales/translations";
 import { useLanguage } from "./contexts/LanguageContext";
 function App() {
-  const { theme, setTheme } = useTheme();
-  const { language, setLanguage } = useLanguage();
+  const { theme } = useTheme();
+  const { language } = useLanguage();
   const [task, setTask] = useState("");
   const [reminderDate, setReminderDate] = useState("");
 
@@ -92,32 +92,6 @@ function App() {
             : "min-h-screen bg-white text-black"
         }
       >
-        <div className="mb-4">
-          <label className="mr-2">Theme:</label>
-
-          <select
-            value={theme}
-            onChange={(e) => setTheme(e.target.value as "light" | "dark")}
-            className="rounded-lg border px-3 py-2 text-black"
-          >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-        </div>
-<div className="mb-4">
-  <label className="mr-2">Language:</label>
-
-  <select
-    value={language}
-    onChange={(e) =>
-      setLanguage(e.target.value as "fa" | "en")
-    }
-    className="rounded-lg border px-3 py-2 text-black"
-  >
-    <option value="fa">فارسی</option>
-    <option value="en">English</option>
-  </select>
-</div>
         <Header />
 
         <main
@@ -141,37 +115,41 @@ function App() {
             }}
             addButtonText={t.add}
           />
-          <div className="mb-6 flex gap-6 rounded-lg border p-4">
+          <div
+            className={`mb-6 flex gap-6 rounded-lg border p-4 ${
+              isDark ? "border-gray-700 bg-gray-800" : "bg-white"
+            }`}
+          >
             <span>
-              {language === "fa" ? `کل: ${totalTodos}` : `Total: ${totalTodos}`}
+              {t.total}: {totalTodos}
             </span>
 
             <span>
-              {language === "fa"
-                ? `انجام شده: ${completedTodos}`
-                : `Completed: ${completedTodos}`}
+              {t.completed}: {completedTodos}
             </span>
 
             <span>
-              {language === "fa"
-                ? `باقی مانده: ${remainingTodos}`
-                : `Remaining: ${remainingTodos}`}
+              {t.remaining}: {remainingTodos}
             </span>
           </div>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={language === "fa" ? "جستجو..." : "Search..."}
-            className="mb-4 w-full rounded-lg border p-3"
+            placeholder={t.search}
+            className={`mb-4 w-full rounded-lg border bg-transparent p-3 text-inherit placeholder:text-gray-400 ${
+              isDark ? "border-gray-700" : ""
+            }`}
           />
           <div className="mb-4 flex gap-2">
             <button
               onClick={() => setFilter("all")}
-              className={`rounded border px-3 py-1 ${
+              className={`rounded border px-3 py-1 transition-colors ${
                 filter === "all"
                   ? "bg-blue-600 text-white"
-                  : "bg-white text-black"
+                  : isDark
+                    ? "bg-gray-800 text-white border-gray-700"
+                    : "bg-white text-black"
               }`}
             >
               {t.all}
@@ -179,10 +157,12 @@ function App() {
 
             <button
               onClick={() => setFilter("active")}
-              className={`rounded border px-3 py-1 ${
-                filter === "active"
+              className={`rounded border px-3 py-1 transition-colors ${
+                filter === "all"
                   ? "bg-blue-600 text-white"
-                  : "bg-white text-black"
+                  : isDark
+                    ? "bg-gray-800 text-white border-gray-700"
+                    : "bg-white text-black"
               }`}
             >
               {t.active}
@@ -190,10 +170,12 @@ function App() {
 
             <button
               onClick={() => setFilter("completed")}
-              className={`rounded border px-3 py-1 ${
-                filter === "completed"
+              className={`rounded border px-3 py-1 transition-colors ${
+                filter === "all"
                   ? "bg-blue-600 text-white"
-                  : "bg-white text-black"
+                  : isDark
+                    ? "bg-gray-800 text-white border-gray-700"
+                    : "bg-white text-black"
               }`}
             >
               {t.completed}
