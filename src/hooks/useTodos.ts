@@ -29,6 +29,8 @@ export function useTodos() {
       completed: false,
       reminderDate,
       reminderTime,
+        notified: false,
+
     };
 
     setTodos([...todos, newTodo]);
