@@ -9,7 +9,6 @@ function Header() {
     <header className="flex items-center justify-between border-b p-6">
       <div>
         <h1 className="text-3xl font-bold">📝 {t.appTitle}</h1>{" "}
-        <p className="text-sm opacity-70">{t.appSubtitle}</p>
       </div>
 
       <div className="flex gap-4">

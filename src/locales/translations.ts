@@ -20,7 +20,6 @@ export const translations = {
     light: "روشن",
     dark: "تیره",
     appTitle: "برنامه مدیریت کارها",
-    appSubtitle: "ساخته شده با React + TypeScript + Tailwind",
   },
 
   en: {
@@ -44,6 +43,5 @@ export const translations = {
     light: "Light",
     dark: "Dark",
     appTitle: "Todo App",
-    appSubtitle: "Built with React + TypeScript + Tailwind",
   },
 };

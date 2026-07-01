@@ -3,9 +3,7 @@ import Header from "./components/layout/Header";
 import TodoForm from "./features/todo/TodoForm";
 import TodoList from "./features/todo/TodoList";
 import { useTodos } from "./hooks/useTodos";
-// تم
 import { useTheme } from "./contexts/ThemeContext";
-// زبان
 import { translations } from "./locales/translations";
 import { useLanguage } from "./contexts/LanguageContext";
 function App() {
@@ -39,7 +37,6 @@ function App() {
   });
   const isDark = theme === "dark";
 
-  // قسمت آمار
   const totalTodos = todos.length;
 
   const completedTodos = todos.filter((todo) => todo.completed).length;
@@ -82,7 +79,6 @@ function App() {
     todosRef.current = todos;
   }, [todos]);
 
-  //////////////////////////////////
   return (
     <>
       <div
